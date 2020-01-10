@@ -70,10 +70,13 @@ const Model = function () {
         }
     }
 
-    this.update = () => {
-        this.rbg[0] = (this.rgb[0] + 1) % 256;
-        this.rbg[1] = (this.rgb[1] + 1) % 256;
-        this.rbg[2] = (this.rgb[2] + 1) % 256;
+    this.update =  function(blockArray) {
+        console.log(this + "\n");
+        console.log(this.rgb);
+        this.rgb[0] = (this.rgb[0] + 3) % 256;
+        this.rgb[1] = (this.rgb[1] + 2) % 256;
+        this.rgb[2] = (this.rgb[2] + 1) % 256;
+        this.color = "rgb(" + this.rgb[0] + "," + this.rgb[1] + "," + this.rgb[2] + ")";
     }
 }
 
