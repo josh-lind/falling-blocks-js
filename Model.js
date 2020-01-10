@@ -27,11 +27,11 @@ const Model = function () {
 
     const moveFallingBlocks = () => {
         this.goodBlocks.forEach(block => {
-            block.y = block.y + gravity;
+            block.y += gravity;
         });
 
         this.badBlocks.forEach(block => {
-            block.y = block.y + gravity;
+            block.y += gravity;
         });
     }
 
