@@ -1,3 +1,5 @@
+//import 'Controller.js';
+
 window.addEventListener("load", function (event) {
 
         var render = function() {

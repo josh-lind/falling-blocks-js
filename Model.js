@@ -1,7 +1,6 @@
 const Model = function () {
     this.color = "rbg(0,0,0)";
-    this.rgb = [0, 0, 0];
-
+    this.rgb = [100, 100, 0];
     this.myBlock = {
         x: .5,
         y: .5,
@@ -10,16 +9,19 @@ const Model = function () {
 
     this.goodBlocks = [];
     this.badBlocks = [];
-    this.fallingSpeed = .02;
+    this.gravity = .02;
 
     this.addBlock = (blockArray) => {
-        const 
+    
     };
 
-    this.update = () => {
-        this.rbg[0] = (this.rgb[0] + 1) % 256;
-        this.rbg[1] = (this.rgb[1] + 1) % 256;
-        this.rbg[2] = (this.rgb[2] + 1) % 256;
+    this.update =  function(blockArray) {
+        console.log(this + "\n");
+        console.log(this.rgb);
+        this.rgb[0] = (this.rgb[0] + 3) % 256;
+        this.rgb[1] = (this.rgb[1] + 2) % 256;
+        this.rgb[2] = (this.rgb[2] + 1) % 256;
+        this.color = "rgb(" + this.rgb[0] + "," + this.rgb[1] + "," + this.rgb[2] + ")";
     }
 }
 
