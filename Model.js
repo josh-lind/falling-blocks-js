@@ -1,6 +1,6 @@
 const Model = function () {
     this.color = "rbg(0,0,0)";
-    this.rgb = [0,0,0];
+    this.rgb = [100,100,0];
     
     this.update = () => {
         this.rbg[0] = (this.rgb[0] + 1) %256;
