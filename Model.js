@@ -3,6 +3,8 @@ const Model = function () {
     this.rgb = [0, 0, 0];
 
     const blockSize = .1;
+    const gravity = .02;
+    const myBlockSpeed = .02;
 
     this.myBlock = {
         x: .5,
@@ -12,9 +14,10 @@ const Model = function () {
 
     this.goodBlocks = [];
     this.badBlocks = [];
-    this.gravity = .02;
     this.running = false;
-    this.score;
+    this.score = 0;
+    // Direction is 0 to not move, 1 for left, and 2 for right
+    this.direction = 0;
 
     const addFallingBlock = (blockArray) => {
         const newBlock = {
@@ -25,6 +28,18 @@ const Model = function () {
         blockArray.push(newBlock);
     }
 
+    const addFallingBlocks = () => {
+        const numBlocksAboveCutoff = this.goodBlocks.filter(b => b.y < .05).length + this.badBlocks.filter(b => b.y < .05).length;
+        if (numBlocksAboveCutoff == 0) {
+            // At this point we know spawning a new block wont spawn it on top of another block
+            // This next if is to add some randomness so the falling blocks aren't evenly spread out
+            if (Math.random() < .1) {
+                // Spawn good/bad block half the time
+                addFallingBlock(Math.random() < .5 ? this.goodBlocks : this.badBlocks);
+            }
+        }
+    }
+
     const moveFallingBlocks = () => {
         this.goodBlocks.forEach(block => {
             block.y += gravity;
@@ -33,6 +48,23 @@ const Model = function () {
         this.badBlocks.forEach(block => {
             block.y += gravity;
         });
+    }
+
+    const moveMyBlock = () => {
+        if (this.direction === 1) {
+            // Left
+            this.myBlock.x -= myBlockSpeed;
+            if (this.myBlock.x < 0) {
+                this.myBlock.x = 0;
+            }
+        }
+        else if (this.direction === 2) {
+            // Right
+            this.myBlock.x += myBlockSpeed;
+            if (this.myBlock.x > 1 - blockSize) {
+                this.myBlock.x = 1 - blockSize;
+            }
+        }
     }
 
     const deleteOffMapBlocks = () => {
@@ -70,13 +102,35 @@ const Model = function () {
         }
     }
 
-    this.update =  function(blockArray) {
+    this.startGame = function() {
+        this.running = true;
+        this.myBlock = {
+            x: .45,
+            y: 1 - blockSize,
+            size: blockSize
+        };
+        this.score = 0;
+        this.direction = 0;
+        this.goodBlocks = [];
+        this.badBlocks = [];
+    }
+
+    this.update = function() {
         console.log(this + "\n");
         console.log(this.rgb);
         this.rgb[0] = (this.rgb[0] + 3) % 256;
         this.rgb[1] = (this.rgb[1] + 2) % 256;
         this.rgb[2] = (this.rgb[2] + 1) % 256;
         this.color = "rgb(" + this.rgb[0] + "," + this.rgb[1] + "," + this.rgb[2] + ")";
+
+        // falling blocks portion
+        if (this.running) {
+            deleteOffMapBlocks();
+            addFallingBlocks();
+            moveFallingBlocks();
+            moveMyBlock();
+            checkAllBlocksForIntersect();
+        }
     }
 }
 
