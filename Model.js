@@ -112,12 +112,17 @@ const Model = function () {
         this.score = 0;
         this.direction = 0;
         this.goodBlocks = [];
+        this.goodBlocks.push({
+            x: 20,
+            y: 20,
+            size: .1,
+        })
         this.badBlocks = [];
     }
 
     this.update = function() {
-        console.log(this + "\n");
-        console.log(this.rgb);
+        //console.log(this + "\n");
+        //console.log(this.rgb);
         this.rgb[0] = (this.rgb[0] + 3) % 256;
         this.rgb[1] = (this.rgb[1] + 2) % 256;
         this.rgb[2] = (this.rgb[2] + 1) % 256;
