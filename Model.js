@@ -37,7 +37,13 @@ const Model = function () {
             // This next if is to add some randomness so the falling blocks aren't evenly spread out
             if (Math.random() < .1) {
                 // Spawn good/bad block half the time
-                addFallingBlock(Math.random() < .5 ? this.goodBlocks : this.badBlocks);
+                if (Math.random() < .5) {
+                    console.log('Add good block');
+                    addFallingBlock(this.goodBlocks);
+                } else {
+                    console.log('Add bad block');
+                    addFallingBlock(this.badBlocks);
+                }
             }
         }
     }
@@ -53,6 +59,8 @@ const Model = function () {
     }
 
     const moveMyBlock = () => {
+        console.log('this.direction', this.direction);
+        
         if (this.direction === 1) {
             // Left
             this.myBlock.x -= myBlockSpeed;
