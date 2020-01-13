@@ -17,14 +17,13 @@ const Display = function (canvas) {
 
     this.renderBlocks = function (blocks, color) {
         this.buffer.fillStyle = color;
-        const width = this.buffer.canvas.width * .1;
-        this.buffer.clearRect(0,0,this.buffer.canvas.width, this.buffer.canvas.height);
-        for (let i = 0; i <blocks.length; i++) {
-            //console.log("ehlloooo");
-            //console.log(blocks[i]);
-            this.buffer.fillRect(blocks[i].x * width,blocks[i].y * width, 30, 30);
-            //this.buffer.fillRect(50, 50, 20, 20);
-        }
+        this.buffer.clearRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+
+        const width = this.buffer.canvas.width;
+
+        blocks.forEach(b => {
+            this.buffer.fillRect(b.x * width, b.y * this.buffer.canvas.height, b.size * width , b.size * width);
+        });
         
     }
 
