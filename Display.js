@@ -15,9 +15,12 @@ const Display = function (canvas) {
 
     };
 
+    this.clearCanvas = function () {
+        this.buffer.clearRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+    }
+
     this.renderBlocks = function (blocks, color) {
         this.buffer.fillStyle = color;
-        this.buffer.clearRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
 
         const width = this.buffer.canvas.width;
 
@@ -28,8 +31,14 @@ const Display = function (canvas) {
     }
 
     this.renderMyBlock = function (myBlock) {
+        const width = this.buffer.canvas.width;
+        const height = this.buffer.canvas.height;
+        console.log(myBlock);
         this.buffer.fillStyle = "#000000";
-        this.buffer.fillRect(0,0 , 30, 30);
+        console.log((myBlock.x * width) + " " + myBlock.size * height);
+        this.buffer.fillRect(myBlock.x * width,myBlock.y*height, myBlock.size* width, myBlock.size * width* 1/4);
+        //this.buffer.fillRect(324,25.6, myBlock.size * width, myBlock.size * width);
+
     }
 
 
