@@ -55,8 +55,9 @@ const Display = function (canvas) {
         //console.log(div);
         console.log(div.style);
         div.style.position="position";
-        div.style.left = "" + 400 + "px";
-        div.style.top = "" + 400 + "px";
+
+        //just trying to see if this will affect it
+        div.style = "position:absolute; left:" + width * .25 + "px; top:" + height * .25 +"px;";
     
         this.context.canvas.height = height * .5;
         this.context.canvas.width = width * .5;
