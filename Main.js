@@ -7,7 +7,7 @@ window.addEventListener("load", function (event) {
             display.renderBlocks(model.badBlocks, "#FF0000");
             display.renderBlocks(model.goodBlocks, "#00FF00");
             // send list of objects to display to render
-
+            display.renderMyBlock(model.myBlock);
             display.render();
         }
 

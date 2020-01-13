@@ -69,12 +69,14 @@ const Model = function () {
         }
     }
 
+    // the model doesn't know whether or not the blocks are off the map (it can't)
+    // not sure 
     const deleteOffMapBlocks = () => {
         this.goodBlocks = this.goodBlocks.filter(block => {
-            return block.y <= 1;
+            return block.y <= 800;
         });
         this.badBlocks = this.badBlocks.filter(block => {
-            return block.y <= 1;
+            return block.y <= 800;
         });
     }
 
@@ -116,11 +118,12 @@ const Model = function () {
         this.score = 0;
         this.direction = 0;
         this.goodBlocks = [];
-        this.goodBlocks.push({
-            x: 20,
-            y: 20,
-            size: .1,
-        })
+        // this.goodBlocks.push({
+        //     x: 20,
+        //     y: 20,
+        //     size: .1,
+        // })
+        //console.log('startGame run many times');
         this.badBlocks = [];
     }
 

@@ -28,6 +28,11 @@ const Display = function (canvas) {
         
     }
 
+    this.renderMyBlock = function (myBlock) {
+        this.buffer.fillStyle = "#000000";
+        this.buffer.fillRect(0,0 , 30, 30);
+    }
+
 
     this.render = function () {
         this.context.drawImage(
@@ -45,9 +50,17 @@ const Display = function (canvas) {
         height = document.documentElement.clientHeight;
         width = document.documentElement.clientWidth;
 
-        this.context.canvas.height = height - 32;
-        this.context.canvas.width = width - 32;
-
+        //grab the div, resize everything
+        div = document.getElementsByClassName("outline")[0];
+        //console.log(div);
+        console.log(div.style);
+        div.style.position="position";
+        div.style.left = "" + 400 + "px";
+        div.style.top = "" + 400 + "px";
+    
+        this.context.canvas.height = height * .5;
+        this.context.canvas.width = width * .5;
+        
         this.render();
 
     };
