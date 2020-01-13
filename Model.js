@@ -1,16 +1,16 @@
-const Model = function () {
+const Model = function (frameRate) {
     this.color = "rbg(0,0,0)";
     this.rgb = [0, 0, 0];
 
-    const blockSize = .1;
-    const gravity = .02;
-    const myBlockSpeed = .02;
+    // yMax is the ratio of window height / window width
+    this.yMax = 1.5;
 
-    this.myBlock = {
-        x: .5,
-        y: .5,
-        size: blockSize
-    };
+    const blockSize = .1;
+    const gravity = .6 / frameRate;
+    const myBlockSpeed = .6 / frameRate;
+
+    // Initialized on start
+    this.myBlock = {};
 
     this.goodBlocks = [];
     this.badBlocks = [];
@@ -38,10 +38,8 @@ const Model = function () {
             if (Math.random() < .1) {
                 // Spawn good/bad block half the time
                 if (Math.random() < .5) {
-                    console.log('Add good block');
                     addFallingBlock(this.goodBlocks);
                 } else {
-                    console.log('Add bad block');
                     addFallingBlock(this.badBlocks);
                 }
             }
@@ -59,8 +57,6 @@ const Model = function () {
     }
 
     const moveMyBlock = () => {
-        console.log('this.direction', this.direction);
-        
         if (this.direction === 1) {
             // Left
             this.myBlock.x -= myBlockSpeed;
@@ -81,10 +77,10 @@ const Model = function () {
     // not sure 
     const deleteOffMapBlocks = () => {
         this.goodBlocks = this.goodBlocks.filter(block => {
-            return block.y <= 800;
+            return block.y <= this.yMax;
         });
         this.badBlocks = this.badBlocks.filter(block => {
-            return block.y <= 800;
+            return block.y <= this.yMax;
         });
     }
 
@@ -120,7 +116,7 @@ const Model = function () {
         this.running = true;
         this.myBlock = {
             x: .45,
-            y: 1 - blockSize,
+            y: this.yMax - blockSize,
             size: blockSize
         };
         this.score = 0;

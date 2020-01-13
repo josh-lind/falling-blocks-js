@@ -1,6 +1,12 @@
+body {
+    background: #ccc;
+    color: #f8f8f8;
+  }
 
 canvas {
-    border: 1px black solid;
-    position: absolute;
-
+    background: #f8f8f8;
+    padding: 0;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    display: block;
 }

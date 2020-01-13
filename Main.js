@@ -3,7 +3,8 @@
 window.addEventListener("load", function (event) {
 
         var render = function() {
-            //display.renderColor(model.color);
+            // display.renderColor('#EEE');
+            display.clearScreen();
             display.renderBlocks(model.badBlocks, "#FF0000");
             display.renderBlocks(model.goodBlocks, "#00FF00");
             // send list of objects to display to render
@@ -26,20 +27,23 @@ window.addEventListener("load", function (event) {
 
             model.update();
         }
+
+        const frameRate = 60;
+
          /* The controller handles user input. */
         var controller = new Controller();
         /* The display handles window resizing, as well as the on screen canvas. */
-        var display    = new Display(document.querySelector("canvas"));
+        var display    = new Display(document.getElementById('gameCanvas'));
         /* The game will eventually hold our game logic. */
-        var model       = new Model();
+        var model       = new Model(frameRate);
         /* The engine is where the above three sections can interact. */
-        var engine     = new Engine(1000/30, render, update);
+        var engine     = new Engine(1000/frameRate, render, update);
 
         ////////////////////
       //// INITIALIZE ////
     ////////////////////
 
-    window.addEventListener("resize",  display.handleResize);
+    // window.addEventListener("resize",  display.handleResize);
     window.addEventListener("keydown", controller.handleKeyDownUp);
     window.addEventListener("keyup",   controller.handleKeyDownUp);
 

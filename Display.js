@@ -1,65 +1,75 @@
-// Frank Poth 02/28/2018
-
 /* This Display class contains the screen resize event handler and also handles
-drawing colors to the buffer and then to the display. */
+drawing blocks. */
 
 const Display = function (canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
 
-    this.buffer = document.getElementById("1").getContext("2d"),
-    this.context = canvas.getContext("2d");
+    // this.buffer = document.getElementById("1").getContext("2d"),
+    // this.context = canvas.getContext("2d");
 
     this.renderColor = function (color) {
 
-        this.buffer.fillStyle = color;
-        this.buffer.fillRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+        this.ctx.fillStyle = color;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     };
 
-    this.renderBlocks = function (blocks, color) {
-        this.buffer.fillStyle = color;
-        this.buffer.clearRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+    this.clearScreen = function () {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    };
 
-        const width = this.buffer.canvas.width;
+    this.renderBlocks = function (blocks, color) {
+        this.ctx.fillStyle = color;
+        // this.buffer.clearRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+
+        const width = this.canvas.width;
 
         blocks.forEach(b => {
-            this.buffer.fillRect(b.x * width, b.y * this.buffer.canvas.height, b.size * width , b.size * width);
+            this.ctx.fillRect(b.x * width, b.y * width, b.size * width, b.size * width);
         });
-        
+
     }
 
     this.renderMyBlock = function (myBlock) {
-        this.buffer.fillStyle = "#000000";
-        this.buffer.fillRect(0,0 , 30, 30);
+        this.ctx.fillStyle = "#333";
+
+        const gameWidth = this.canvas.width;
+        const scaledBlockSize = gameWidth * myBlock.size;
+        const x = myBlock.x * gameWidth;
+        const y = myBlock.y * gameWidth;
+        this.ctx.fillRect(x, y, scaledBlockSize, scaledBlockSize);
     }
 
 
     this.render = function () {
-        this.context.drawImage(
-            this.buffer.canvas, 0, 0,
-            this.buffer.canvas.width,
-            this.buffer.canvas.height, 0, 0,
-            this.context.canvas.width,
-            this.context.canvas.height);
+        // this.context.drawImage(this.buffer.canvas);
+        // this.context.drawImage(
+        //     this.buffer.canvas, 0, 0,
+        //     this.buffer.canvas.width,
+        //     this.buffer.canvas.height, 0, 0,
+        //     this.context.canvas.width,
+        //     this.context.canvas.height);
     };
 
     this.resize = function (event) {
 
-        var height, width;
+        // var height, width;
 
-        height = document.documentElement.clientHeight;
-        width = document.documentElement.clientWidth;
+        // height = document.documentElement.clientHeight;
+        // width = document.documentElement.clientWidth;
 
-        //grab the div, resize everything
-        div = document.getElementsByClassName("outline")[0];
-        //console.log(div);
-        console.log(div.style);
-        div.style.position="position";
-        div.style.left = "" + 400 + "px";
-        div.style.top = "" + 400 + "px";
-    
-        this.context.canvas.height = height * .5;
-        this.context.canvas.width = width * .5;
-        
+        // //grab the div, resize everything
+        // div = document.getElementsByClassName("outline")[0];
+        // //console.log(div);
+        // console.log(div.style);
+        // div.style.position="position";
+        // div.style.left = "" + 400 + "px";
+        // div.style.top = "" + 400 + "px";
+
+        // this.context.canvas.height = height * .5;
+        // this.context.canvas.width = width * .5;
+
         this.render();
 
     };
