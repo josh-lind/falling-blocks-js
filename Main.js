@@ -12,8 +12,19 @@ window.addEventListener("load", function (event) {
         }
 
         var update = function() {
+            // Set the players direction
+            if (controller.left.active && !controller.right.active) {
+                // go left
+                model.direction = 1;
+            } else if (controller.right.active && !controller.left.active) {
+                // go right
+                model.direction = 2;
+            } else {
+                // don't move
+                model.direction = 0;
+            }
+
             model.update();
-    
         }
          /* The controller handles user input. */
         var controller = new Controller();

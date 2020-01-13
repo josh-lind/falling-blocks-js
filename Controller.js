@@ -19,8 +19,6 @@ const Controller = function() {
   
       }
   
-      alert("You pressed a key (" + event.keyCode + ")!");
-  
     };
   
     this.handleKeyDownUp = (event) => { this.keyDownUp(event); };
