@@ -22,8 +22,8 @@ const Display = function (canvas) {
         for (let i = 0; i <blocks.length; i++) {
             //console.log("ehlloooo");
             //console.log(blocks[i]);
-            this.buffer.fillRect(blocks[i].x,blocks[i].y, 20, 20);
-            this.buffer.fillRect(50, 50, 20, 20);
+            this.buffer.fillRect(blocks[i].x * width,blocks[i].y * width, 30, 30);
+            //this.buffer.fillRect(50, 50, 20, 20);
         }
         
     }

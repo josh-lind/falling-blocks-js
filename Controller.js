@@ -1,7 +1,6 @@
 
 const Controller = function() {
 
-    console.log("asdf");
     this.down  = new Controller.ButtonInput();
     this.left  = new Controller.ButtonInput();
     this.right = new Controller.ButtonInput();

@@ -32,6 +32,8 @@ const Model = function () {
         const numBlocksAboveCutoff = this.goodBlocks.filter(b => b.y < .05).length + this.badBlocks.filter(b => b.y < .05).length;
         if (numBlocksAboveCutoff == 0) {
             // At this point we know spawning a new block wont spawn it on top of another block
+            // TODO - the blocks are spawning on top of each other, so I commented a line out in isIntersection
+    
             // This next if is to add some randomness so the falling blocks aren't evenly spread out
             if (Math.random() < .1) {
                 // Spawn good/bad block half the time
@@ -98,7 +100,9 @@ const Model = function () {
         const numBadDeleted = numBad - this.badBlocks.length;
         if (numBadDeleted > 0) {
             // This means the player ran into a bad block. GAME OVER
-            this.running = false;
+
+
+            //this.running = false;
         }
     }
 
