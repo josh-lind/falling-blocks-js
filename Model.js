@@ -23,7 +23,7 @@ const Model = function (frameRate) {
         const newBlock = {
             x: Math.random() * (1 - blockSize),
             y: -blockSize,
-            size: blockSize
+            size: blockSize,
         }
         blockArray.push(newBlock);
     }
@@ -57,18 +57,40 @@ const Model = function (frameRate) {
     }
 
     const moveMyBlock = () => {
+        if (this.myBlock.vel == 0) {
+            console.log("0 velocity");
+        }
+
         if (this.direction === 1) {
             // Left
-            this.myBlock.x -= myBlockSpeed;
+            this.myBlock.vel -= myBlockSpeed;
+            this.myBlock.x = this.myBlock.x + (this.myBlock.vel * .2);
             if (this.myBlock.x < 0) {
                 this.myBlock.x = 0;
+                this.myBlock.vel = 0;
+
+            } else if (this.myBlock.x > 1 - blockSize) {
+                this.myBlock.x = 1 - blockSize;
+                this.myBlock.vel = 0;
+
             }
         }
         else if (this.direction === 2) {
             // Right
-            this.myBlock.x += myBlockSpeed;
+            this.myBlock.vel += myBlockSpeed;
+            this.myBlock.x = this.myBlock.x + this.myBlock.vel * .2;
             if (this.myBlock.x > 1 - blockSize) {
                 this.myBlock.x = 1 - blockSize;
+                this.myBlock.vel = 0;
+            } else if (this.myBlock.x < 0) {
+                this.myBlock.x = 0;
+                this.myBlock.vel = 0;
+            }
+        } else {
+            if (this.myBlock.vel > 0) {
+                this.myBlock.vel -= .1;
+            } else if (this.myBlock.vel < 0) {
+                this.myBlock.vel += .1;
             }
         }
     }
@@ -106,9 +128,7 @@ const Model = function (frameRate) {
         const numBadDeleted = numBad - this.badBlocks.length;
         if (numBadDeleted > 0) {
             // This means the player ran into a bad block. GAME OVER
-
-
-            //this.running = false;
+            this.running = false;
         }
     }
 
@@ -117,6 +137,7 @@ const Model = function (frameRate) {
         this.myBlock = {
             x: .45,
             y: this.yMax - blockSize,
+            vel:0,
             size: blockSize
         };
         this.score = 0;
@@ -129,6 +150,10 @@ const Model = function (frameRate) {
         // })
         //console.log('startGame run many times');
         this.badBlocks = [];
+    }
+
+    this.stopGame = function() {
+        this.running = false;
     }
 
     this.update = function() {

@@ -15,6 +15,10 @@ const Display = function (canvas) {
 
     };
 
+    this.updateScore = function (score) {
+        document.getElementById("score").innerHTML = "Score: " + score;
+    }
+
     this.clearScreen = function () {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     };

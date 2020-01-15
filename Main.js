@@ -9,6 +9,7 @@ window.addEventListener("load", function (event) {
             display.renderBlocks(model.goodBlocks, "#00FF00");
             // send list of objects to display to render
             display.renderMyBlock(model.myBlock);
+            display.updateScore(model.score);
         }
 
         var update = function() {
@@ -48,5 +49,14 @@ window.addEventListener("load", function (event) {
 
     display.resize();
     engine.start();
-    model.startGame();
+
+    this.startGame = function() {
+        console.log("start game");
+        model.startGame();
+    }
+
+    this.stopGame = function() {
+        console.log("stop game");
+        model.stopGame();
+    }
 });
