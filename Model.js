@@ -16,6 +16,7 @@ const Model = function (frameRate) {
     this.badBlocks = [];
     this.running = false;
     this.score = 0;
+    this.highScore = 0;
     // Direction is 0 to not move, 1 for left, and 2 for right
     this.direction = 0;
 
@@ -128,8 +129,19 @@ const Model = function (frameRate) {
         const numBadDeleted = numBad - this.badBlocks.length;
         if (numBadDeleted > 0) {
             // This means the player ran into a bad block. GAME OVER
-            this.running = false;
+            gameOver();
         }
+    }
+
+    const gameOver = () => {
+        this.running = false;
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+        }
+
+        console.log('Game Over.');
+        console.log('Score', this.score);
+        console.log('High Score', this.highScore);
     }
 
     this.startGame = function() {
@@ -143,17 +155,11 @@ const Model = function (frameRate) {
         this.score = 0;
         this.direction = 0;
         this.goodBlocks = [];
-        // this.goodBlocks.push({
-        //     x: 20,
-        //     y: 20,
-        //     size: .1,
-        // })
-        //console.log('startGame run many times');
         this.badBlocks = [];
     }
 
-    this.stopGame = function() {
-        this.running = false;
+    this.endGame = function() {
+        gameOver();
     }
 
     this.update = function() {

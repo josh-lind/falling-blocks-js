@@ -15,8 +15,9 @@ const Display = function (canvas) {
 
     };
 
-    this.updateScore = function (score) {
+    this.updateScore = function (score, highscore) {
         document.getElementById("score").innerHTML = "Score: " + score;
+        document.getElementById("high-score").innerHTML = "Score: " + highscore;
     }
 
     this.clearScreen = function () {
