@@ -20,6 +20,8 @@ window.addEventListener("load", function (event) {
             } else if (controller.right.active && !controller.left.active) {
                 // go right
                 model.direction = 2;
+            } else if (controller.up.active) {
+                model.direction = 3;
             } else {
                 // don't move
                 model.direction = 0;
@@ -58,5 +60,6 @@ window.addEventListener("load", function (event) {
     this.stopGame = function() {
         console.log("stop game");
         model.endGame();
+        
     }
 });

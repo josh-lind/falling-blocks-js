@@ -16,7 +16,7 @@ const Controller = function() {
         case 38: this.up.getInput(down);    break;
         case 39: this.right.getInput(down); break;
         case 40: this.down.getInput(down);
-  
+        
       }
   
     };

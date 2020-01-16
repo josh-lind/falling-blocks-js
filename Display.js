@@ -4,16 +4,10 @@ drawing blocks. */
 const Display = function (canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
-
-    // this.buffer = document.getElementById("1").getContext("2d"),
-    // this.context = canvas.getContext("2d");
-
-    this.renderColor = function (color) {
-
-        this.ctx.fillStyle = color;
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    };
+    this.fadeArray = [];
+    this.x = 5;
+    this.mod15 = 0;
+    
 
     this.updateScore = function (score, highscore) {
         document.getElementById("score").innerHTML = "Score: " + score;
@@ -45,11 +39,26 @@ const Display = function (canvas) {
 
         const gameWidth = this.canvas.width;
         const scaledBlockSize = gameWidth * myBlock.size;
-        const x = myBlock.x * gameWidth;
-        const y = myBlock.y * gameWidth;
+        var x = myBlock.x * gameWidth;
+        var y = myBlock.y * gameWidth;
+        
+        const obj = {
+            asdf: x,
+            asdf2: y
+        }
+        this.fadeArray[0] = obj;
+        console.log(this.fadeArray);
+        // keep the last 0 mod 15 locations so we can do a cool animation
+        //this.mod15 = (this.mod15 + 1) % 15;
         this.ctx.fillRect(x, y, scaledBlockSize, scaledBlockSize);
+        //}
+        this.ctx.globalAlpha = 1;
     }
+    
 
+    this.print = function() {
+        console.log(this.fadeArray);
+    }
 
     this.render = function () {
         // this.context.drawImage(this.buffer.canvas);
