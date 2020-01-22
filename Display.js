@@ -41,24 +41,12 @@ const Display = function (canvas) {
         const scaledBlockSize = gameWidth * myBlock.size;
         var x = myBlock.x * gameWidth;
         var y = myBlock.y * gameWidth;
-        
-        const obj = {
-            asdf: x,
-            asdf2: y
-        }
-        this.fadeArray[0] = obj;
-        console.log(this.fadeArray);
-        // keep the last 0 mod 15 locations so we can do a cool animation
-        //this.mod15 = (this.mod15 + 1) % 15;
+
         this.ctx.fillRect(x, y, scaledBlockSize, scaledBlockSize);
-        //}
+
         this.ctx.globalAlpha = 1;
     }
     
-
-    this.print = function() {
-        console.log(this.fadeArray);
-    }
 
     this.render = function () {
         // this.context.drawImage(this.buffer.canvas);

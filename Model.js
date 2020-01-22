@@ -16,11 +16,11 @@ const Model = function (frameRate) {
     /**
      * 200 Newtons
      */
-    const pushForce = 200;
+    const pushForce = 150;
     /**
      * friction coefficient
      */
-    const friction = .5;
+    const friction = 1.5;
     // Initialized on start
     this.myBlock = {};
 
@@ -95,6 +95,13 @@ const Model = function (frameRate) {
     const updateMyVel = () => {
         const block = this.myBlock;
         block.vel = (block.accel * t) + block.vel;
+        if (Math.abs(block.vel) > .4) {
+            const sign = block.vel > 0 ? 1:(-1);
+            block.vel = sign * .4;
+            console.log(sign);
+        } else if (Math.abs(block.vel) < .05 && !this.direction) {
+            block.vel = 0;
+        }
         
     }
 
@@ -174,7 +181,7 @@ const Model = function (frameRate) {
             size: blockSize,
             accel: 0,
             vel: 0,
-            mass: 500
+            mass: 250
         };
         this.score = 0;
         this.direction = 0;
