@@ -201,7 +201,27 @@ const Model = function (frameRate) {
     }
 
     const getReward = () => {
-        // float from 0 to 1 I think
+        const bad = this.badBlocks.filter((block) => {
+            return (block.x + blockSize >= this.myBlock.x) &&
+                (block <= this.myBlock.x + blockSize);
+        })[0];
+
+        const good = this.goodBlocks.filter((block) => {
+            return (block.x + blockSize >= this.myBlock.x) &&
+                (block <= this.myBlock.x + blockSize);
+        })[0];
+
+        if (good && bad) {
+            return good.y > bad.y ? 1.0: -1.0;
+        } else if (good) {
+            return 1.0;
+        } else if (bad) {
+            return -1.0;
+        } else {
+            return 0.0;
+        }
+
+        
     }
 
     const feedAgent = () => {
