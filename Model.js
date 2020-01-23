@@ -106,13 +106,13 @@ const Model = function (frameRate) {
         const block = this.myBlock;
         block.vel = (block.accel * t) + block.vel;
         if (Math.abs(block.vel) > .4) {
-            const sign = block.vel > 0 ? 1:(-1);
+            const sign = block.vel > 0 ? 1 : (-1);
             block.vel = sign * .4;
             console.log(sign);
         } else if (Math.abs(block.vel) < .05 && !this.direction) {
             block.vel = 0;
         }
-        
+
     }
 
     /**
@@ -172,21 +172,33 @@ const Model = function (frameRate) {
         }
     }
 
-    const updateGame = () => {
-        deleteOffMapBlocks();
-            addFallingBlocks();
-            moveFallingBlocks();
-            moveMyBlock();
-            checkAllBlocksForIntersect();
+    const pushLocationOfBlock = (block, arr) => {
+        if (block) {
+            arr.push(block.x);
+            arr.push(block.y);
+        } else {
+            arr.push(0);
+            arr.push(-blockSize);
+        }
+    }
+
+    const buildStateArray = () => {
+        const arr = [];
+        arr.push(this.myBlock.x);
+        arr.push(this.myBlock.vel);
+    }
+
+    const getReward = () => {
+        // float from 0 to 1 I think
     }
 
     const feedAgent = () => {
-        const action = agent.act(buildStateArray()); // s is an array of length 14
+        const action = this.agent.act(buildStateArray()); // s is an array of length 14
         //... execute action in environment and get the reward
         this.direction = action;
         updateGame();
 
-        agent.learn(getReward()); // the agent improves its Q,policy,model, etc. reward is a float
+        this.agent.learn(getReward()); // the agent improves its Q,policy,model, etc. reward is a float
     }
 
     const gameOver = () => {
@@ -218,6 +230,14 @@ const Model = function (frameRate) {
 
     this.endGame = function () {
         gameOver();
+    }
+
+    const updateGame = () => {
+        deleteOffMapBlocks();
+        addFallingBlocks();
+        moveFallingBlocks();
+        moveMyBlock();
+        checkAllBlocksForIntersect();
     }
 
     this.update = function () {
