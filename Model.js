@@ -186,6 +186,18 @@ const Model = function (frameRate) {
         const arr = [];
         arr.push(this.myBlock.x);
         arr.push(this.myBlock.vel);
+
+        const goods = this.goodBlocks.slice(0, 3);
+        while (goods.length < 3) {
+            goods.push(null);
+        }
+        const bads = this.goodBlocks.slice(0, 3);
+        while (bads.length < 3) {
+            bads.push(null);
+        }
+
+        goods.forEach(b => pushLocationOfBlock(b, arr));
+        bads.forEach(b => pushLocationOfBlock(b, arr));
     }
 
     const getReward = () => {
