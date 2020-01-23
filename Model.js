@@ -198,6 +198,8 @@ const Model = function (frameRate) {
 
         goods.forEach(b => pushLocationOfBlock(b, arr));
         bads.forEach(b => pushLocationOfBlock(b, arr));
+
+        return arr;
     }
 
     const getReward = () => {
@@ -225,7 +227,9 @@ const Model = function (frameRate) {
     }
 
     const feedAgent = () => {
-        const action = this.agent.act(buildStateArray()); // s is an array of length 14
+        const s = buildStateArray();
+        console.log(s);
+        const action = this.agent.act(s); // s is an array of length 14
         //... execute action in environment and get the reward
         this.direction = action;
         updateGame();
