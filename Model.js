@@ -32,6 +32,16 @@ const Model = function (frameRate) {
     // Direction is 0 to not move, 1 for left, and 2 for right
     this.direction = 0;
 
+    // AI part
+    // create an environment object
+    var env = {};
+    env.getNumStates = function () { return 14; }
+    env.getMaxNumActions = function () { return 3; }
+
+    // create the DQN agent
+    var spec = { alpha: 0.01 } // see full options on DQN page
+    this.agent = new RL.DQNAgent(env, spec);
+
     const addFallingBlock = (blockArray) => {
         const newBlock = {
             x: Math.random() * (1 - blockSize),
@@ -95,7 +105,7 @@ const Model = function (frameRate) {
     const updateMyVel = () => {
         const block = this.myBlock;
         block.vel = (block.accel * t) + block.vel;
-        
+
     }
 
     /**
@@ -155,6 +165,23 @@ const Model = function (frameRate) {
         }
     }
 
+    const updateGame = () => {
+        deleteOffMapBlocks();
+            addFallingBlocks();
+            moveFallingBlocks();
+            moveMyBlock();
+            checkAllBlocksForIntersect();
+    }
+
+    const feedAgent = () => {
+        const action = agent.act(buildStateArray()); // s is an array of length 14
+        //... execute action in environment and get the reward
+        this.direction = action;
+        updateGame();
+
+        agent.learn(getReward()); // the agent improves its Q,policy,model, etc. reward is a float
+    }
+
     const gameOver = () => {
         this.running = false;
         if (this.score > this.highScore) {
@@ -188,11 +215,7 @@ const Model = function (frameRate) {
 
     this.update = function () {
         if (this.running) {
-            deleteOffMapBlocks();
-            addFallingBlocks();
-            moveFallingBlocks();
-            moveMyBlock();
-            checkAllBlocksForIntersect();
+            feedAgent();
         }
     }
 }
