@@ -228,7 +228,6 @@ const Model = function (frameRate) {
 
     const feedAgent = () => {
         const s = buildStateArray();
-        console.log(s);
         const action = this.agent.act(s); // s is an array of length 14
         //... execute action in environment and get the reward
         this.direction = action;
